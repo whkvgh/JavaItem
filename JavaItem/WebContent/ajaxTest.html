@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="EUC-KR">
+<title>Insert title here</title>
+<script src="js/jquery-3.3.1.min.js"></script>
+<script>
+$(function(){
+	$.ajax({
+		url : "MOCK_DATA.json", //접속해서 요청할 페이지 
+		dataType : "json",
+		success : function(data) { //정상적으로 데이터를 받아오면 리턴할 값들
+			console.log(data);
+			if (data.length > 0) {
+				var tb = $("<table border='1' />");
+				for ( var i in data) {
+					var $id = data[i].id
+					var $first_name = data[i].first_name;
+					var $last_name = data[i].last_name;
+					var $email = data[i].email;
+
+					var row = $("<tr />").append($("<td />").text($id),
+							$("<td />").text($first_name),
+							$("<td />").text($last_name),
+							$("<td />").text($email));
+					tb.append(row);
+				}
+				$(".wrap").append(tb);
+			}
+
+		}
+	});
+
+}
+		
+);</script>
+</head>
+<body>
+	<h1>아작스 테스크</h1>
+	<div class="wrap"></div>
+</body>
+</html>

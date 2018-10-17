@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="EUC-KR">
+    <title>Insert title here</title>
+    <style>
+        table {
+    	border: 1px solid powderblue;
+    	text-align:center;
+    	}
+    </style>
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("#btn").click(function () {
+                $.ajax({
+                    url: "RunPage?action=product",
+                    success: function (result) {
+                        var data = JSON.parse(result);
+                        var $tag = "<table border='1'>";
+                        $tag += "<th width=100>판매번호</th><th width=100>라인번호</th><th width=100>상품코드</th><th width=100>상품명</th><th width=100>수량</th>"+
+                        	"<th width=100>단가</th><th width=100>금액</th><th width=100>입고일자</th><th width=100>업체코드</th><th width=100>입고창고</th><th align=center width=100>처리</th>";
+                        for (var i = 0; i < data.length; i++) {
+                            $tag += "<tr><td>" + data[i].sell_num + "</td><td>"
+                                + data[i].sub_infor + "</td><td>"
+                                + data[i].sub_group + "</td><td>"
+                                + data[i].i_name + "</td><td>"
+                                + data[i].i_count + "</td><td>"
+                                + data[i].price + "</td><td>"
+                                + data[i].money + "</td><td>"
+                                + data[i].out_date + "</td><td>"
+                                + data[i].busin_code + "</td><td>"
+                                + data[i].store_code + "</td><td>"
+                                + "<button>삭제</button><button>수정</button>" + "</td></tr>";
+                        }
+                        $tag += "</table>";
+                        $("#div1").append($tag);
+                    }
+                });
+            });
+
+            $("#btn1").click(function () {
+                $.ajax({
+                    url: "RunPage?action=inout",
+                    success: function (result) {
+                        var data = JSON.parse(result);
+                        var $tag = "<table border='1'>";
+                        $tag += "<th width=100>상품코드</th><th width=100>상품명</th><th width=100>입고수량</th><th width=100>출고수량</th><th width=100>입출고날자</th><th width=100>창고</th><th align=center width=100>처리</th>";
+                        for (var i = 0; i < data.length; i++) {
+                            $tag += "<tr><td>" + data[i].sub_group + "</td><td>"
+                                + data[i].i_name + "</td><td>"
+                                + data[i].in_count + "</td><td>"
+                                + data[i].out_count + "</td><td>"
+                                + data[i].date_list + "</td><td>"
+                                + data[i].store_code + "</td><td>"
+                                + data[i].bigo + "</td><td>"
+                                + "<button>삭제</button>" + "</td></tr>";
+                        }
+                        $tag += "</table>";
+                        $("#div1").append($tag);
+                    }
+                });
+            });
+        });
+    </script>
+</head>
+
+<body>
+<h1>입출고 정보 조회</h1>
+    <a href="RunPage?action=product">getProduct</a>
+    <button type="button" id="btn">상품정보</button>
+    <button type="button" id="btn1">입출고정보</button><br><br>
+    <div id="div1"></div><br><br>
+    <div id="inout"></div>
+    <p>상품조회화면입니다.</p>
+</body>
+
+</html>

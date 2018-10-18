@@ -35,17 +35,18 @@ public class OutlistDao {
 	 String sql = "insert into out_list(sub_group, i_name, i_count, price, money, busin_code, store_code, out_date) " + 
 			"  values(?,?,?,?,?,?,?, sysdate)";
 	 
+	
 	 try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, bean.getSell_num());
 			pstmt.setInt(2, bean.getSub_infor());
 			pstmt.setString(3, bean.getSub_group());
 			pstmt.setString(4, bean.getI_name());
-			pstmt.setInt(6, bean.getI_count());
-			pstmt.setInt(7, bean.getPrice());
-			pstmt.setInt(8, bean.getMoney());
-			pstmt.setString(9, bean.getBusin_code());
-			pstmt.setString(10, bean.getStore_code());
+			pstmt.setInt(5, bean.getI_count());
+			pstmt.setInt(6, bean.getPrice());
+			pstmt.setInt(7, bean.getMoney());
+			pstmt.setString(8, bean.getBusin_code());
+			pstmt.setString(9, bean.getStore_code());
 			
 			rs = pstmt.executeQuery();
 			

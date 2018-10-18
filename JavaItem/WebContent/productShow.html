@@ -12,7 +12,7 @@
     </style>
     <script src="js/jquery-3.3.1.min.js"></script>
     <script>
-        $(document).ready(function () {
+        $(document).ready(function () {	//아이템 조회
             $("#btn").click(function () {
                 $.ajax({
                     url: "RunPage?action=product",
@@ -40,7 +40,7 @@
                 });
             });
 
-            $("#btn1").click(function () {
+            $("#btn1").click(function () {	//입출고 조회
                 $.ajax({
                     url: "RunPage?action=inout",
                     success: function (result) {

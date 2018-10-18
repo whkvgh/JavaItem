@@ -49,7 +49,7 @@ public ResultSet in_list_busin() {
 		return rs;
 	}
 	
-	public ResultSet in_list_show() {
+	public ResultSet inlist() {
 		
 		String sql = "select * from in_list";
 		

@@ -2,40 +2,143 @@
 <html lang="en">
 
 <head>
-    <title>CSS Template</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" type="text/css" href="js/mystyle.css">
-    <script src="js/jquery-3.3.1.min.js"></script>
-    <script src="js/myscript.js"></script>
+<title>CSS Template</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" type="text/css" href="js/mystyle.css">
+<script src="js/jquery-3.3.1.min.js"></script>
+<script src="js/myscript.js"></script>
+<script>
+        $(function () {
+        	$("#frm1").css("display","none");
+            $("#litemlist").on("click", function () {
+                var $frm = $("#frm1");
+                var myData = $frm.serialize();
+                $.ajax({
+                    url: "RunPage?action=itemlist",
+                    type: "post",
+                    data: myData,
+                    success: function (data) {
+                        console.log(data);
+                        $("#item").click();
+                    },
+                    error: function () {
+                        console.log("error");
+                    }
+                })
+            });
+        });
 
+        function editpro(str) {	//품목수정
+            $.ajax({
+            	
+                url: "RunPage?action=itemlist&i_name=" + str,
+                success: function (result) {
+                	var data = JSON.parse(result);
+                	console.log(result);
+                	$("#tbl1 input[name=i_group]").val(data[0].i_group);
+                	$("#tbl1 input[name=sub_group]").val(data[0].sub_group);
+                	$("#tbl1 input[name=i_name]").val(data[0].i_name);
+                	$("#tbl1 input[name=i_size]").val(data[0].i_size);
+                	$("#tbl1 input[name=unit]").val(data[0].unit);        	
+                   	$("#tbl1 input[name=store_code]").val(data[0].store_code);
+                	$("#tbl1 input[name=price]").val(data[0].price);
+                	
+                }
+            })
+        };
+        
+  function insertitem(str) {	//품목입력
+        	
+            $.ajax({
+                url: "RunPage?action=insertitem",
+                success: function (result) {
+                	var data = JSON.parse(result);
+                	console.log(result);
+                	$("#tbl1 input[name=i_group]").val();
+                	$("#tbl1 input[name=i_group]").val();
+                	$("#tbl1 input[name=sub_group]").val();
+                	$("#tbl1 input[name=i_name]").val();
+                	$("#tbl1 input[name=i_size]").val();
+                	$("#tbl1 input[name=unit]").val();        	
+                   	$("#tbl1 input[name=store_code]").val();
+                	$("#tbl1 input[name=price]").val();
+                	
+                }
+            })
+        };
+    </script>
 </head>
 
 <body>
 
-    <header>
-        <h2>재고관리 프로그램</h2>
-    </header>
+	<header>
+		<h2>재고관리 프로그램</h2>
+	</header>
 
-    <section>
-        <nav>
-        </nav>
+	<section>
+		<nav></nav>
 
-        <article>
-            <h1>기초정보</h1>
-            <button type="button" id="itemlist">품목정보</button>
-            <button type="button" id="storelist">창고정보</button>  
-            <button type="button" id="inoutlist">입출고정보</button>
-            <button type="button" id="inbusinlist">구매업체정보</button>
-            <button type="button" id="outbusin">판매업체정보</button>
-            <div id="div1"></div>
-        </article>
-    </section>
+		<article>
+			<h1>기초정보</h1>
+			<button type="button" id="itemlist">품목정보</button>
+			<button type="button" id="storelist">창고정보</button>
+			<button type="button" id="inoutlist">입출고정보</button>
+			<button type="button" id="inbusinlist">구매업체정보</button>
+			<button type="button" id="outbusin">판매업체정보</button>
+			<div id="div1"></div>
 
-    <footer>
-        <p>jjh</p>
-    </footer>
+			<br> <br>
+			<form id="frm1" action="RunPage?action=itemlist">
+				<table id="tbl1" border=1>
+					<tr>
+						<td>분류코드</td>
+						<td><input type="text" name="i_group"></td>
+					</tr>
+					<tr>
+						<td>상품코드</td>
+						<td><input type="text" name="sub_group"></td>
+					</tr>
+					<tr>
+						<td>상품명</td>
+						<td><input type="text" name="i_name"></td>
+					</tr>
+					<tr>
+						<td>규격</td>
+						<td><input type="text" name="i_size"></td>
+					</tr>
+					<tr>
+						<td>단위</td>
+						<td><input type="text" name="unit"></td>
+					</tr>
+					<tr>
+						<td>창고코드</td>
+						<td><input type="text" name="store_code"></td>
+					</tr>
+					<tr>
+						<td>단가</td>
+						<td><input type="text" name="price"></td>
+					</tr>
+					<tr align="center">
+						<td colspan="2">
+							<button type="button" id="insertitem">입력</button>
+							<button type="button" id="edititem">수정</button>
+							<button type="button" id="deleteitem">삭제</button>
+						</td>
+					</tr>
+				</table>
+			</form>
+			<div id="div2"></div>
+				
+			
+		</article>
+
+
+	</section>
+
+	<footer>
+		<p>jjh</p>
+	</footer>
 
 </body>
-
 </html>

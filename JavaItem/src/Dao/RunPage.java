@@ -74,7 +74,6 @@ public class RunPage extends HttpServlet {
 						be.setI_group(rs.getString("i_group"));
 						be.setSub_group(rs.getString("sub_group"));
 						be.setI_name(rs.getString("i_name"));
-						be.setI_size(rs.getString("i_name"));
 						be.setI_size(rs.getString("i_size"));
 						be.setUnit(rs.getInt("unit"));
 						be.setStore_code(rs.getString("store_code"));
@@ -88,7 +87,7 @@ public class RunPage extends HttpServlet {
 				e.printStackTrace();
 			}
 			out.write(JSONArray.fromObject(list).toString());
-
+			
 		} else if (action.equals("edititem")) {
 // 1.1.1아이템 수정
 			Admin_Dao da = new Admin_Dao();
@@ -122,7 +121,37 @@ public class RunPage extends HttpServlet {
 			be.setUnit(Integer.parseInt(unit));
 			
 			da.insertitem(be);
+			
 
+		} else if (action.equals("productajax")) {
+//폼으로 아이템 보기			
+			System.out.println("item list start");
+			List<ItemListBean> list = new ArrayList<>();
+			ItemListBean be = new ItemListBean();
+			Admin_Dao da = new Admin_Dao();
+			ResultSet rs = da.item_list_show(i_name);
+
+			try {
+				if (rs.next()) {
+					do {
+						be = new ItemListBean();
+						be.setI_group(rs.getString("i_group"));
+						be.setSub_group(rs.getString("sub_group"));
+						be.setI_name(rs.getString("i_name"));
+						be.setI_size(rs.getString("i_size"));
+						be.setUnit(rs.getInt("unit"));
+						be.setStore_code(rs.getString("store_code"));
+						be.setPrice(rs.getInt("price"));
+
+						list.add(be);
+
+					} while (rs.next());
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			out.write("{\"data\" : " +(JSONArray.fromObject(list).toString() + "}"));
+			
 		} else if (action.equals("storelist")) {
 			// 1.2 창고정보 조회
 			System.out.println("store list start");

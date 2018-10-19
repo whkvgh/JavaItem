@@ -6,7 +6,14 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" type="text/css" href="js/mystyle.css">
-<script src="js/jquery-3.3.1.min.js"></script>
+
+<link
+	href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css"
+	rel="stylesheet">
+
+<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+<script
+	src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
 <script src="js/myscript.js"></script>
 <script>
         $(function () {
@@ -68,6 +75,22 @@
             })
         };
     </script>
+<script>
+    $(document).ready(function() {
+    $('#example').DataTable( {
+        "ajax": "RunPage?action=productajax",
+        "columns": [
+            { "data": "i_group" },
+            { "data": "sub_group" },
+            { "data": "i_name" },
+            { "data": "i_size" },
+            { "data": "unit" },
+            { "data": "store_code" },
+            { "data": "price" }
+        ]
+    } );
+} );
+</script>
 </head>
 
 <body>
@@ -128,9 +151,32 @@
 					</tr>
 				</table>
 			</form>
-			<div id="div2"></div>
-				
-			
+			<table id="example">
+				<thead>
+					<tr>
+						<th>분류코드</th>
+						<th>상품코드</th>
+						<th>상품명</th>
+						<th>규격</th>
+						<th>단위</th>
+						<th>창고코드</th>
+						<th>단가</th>
+					</tr>
+				</thead>
+				<tfoot>
+					<tr>
+						<th>분류코드</th>
+						<th>상품코드</th>
+						<th>상품명</th>
+						<th>규격</th>
+						<th>단위</th>
+						<th>창고코드</th>
+						<th>단가</th>
+					</tr>
+				</tfoot>
+			</table>
+
+
 		</article>
 
 
